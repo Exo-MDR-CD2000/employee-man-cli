@@ -73,3 +73,30 @@ const showPrompt = () => {
         }
     })
 }
+
+
+// now create the functions for each of the switch cases
+
+const viewAllDepartments = () => {
+    connection.query('SELECT * FROM department', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        showPrompt();
+    })
+}
+
+const viewAllRoles = () => {
+    connection.query('SELECT * FROM role', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        showPrompt();
+    })
+}
+
+const viewAllEmployees = () => {
+    connection.query('SELECT * FROM employee', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        showPrompt();
+    })
+}
