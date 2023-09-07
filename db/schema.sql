@@ -13,7 +13,8 @@ create table department (
 create table role (
     id int primary KEY,
     title varchar(30) not null,
-    salary decimal (10,2) not null,
+    salary int not null,
+    -- can also be set to decimal but it looks weird having a yearly salary with cents
     department_id int,
     -- determine later if department_id needs to be set to 'not null'
     foreign key (department_id) references department(id)
