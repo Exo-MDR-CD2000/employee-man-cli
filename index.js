@@ -3,8 +3,8 @@
 // import the connection from db/connection.js so that mysql can be used
 
 const inquirer = require('inquirer');
-const connection = require('./connection.js');
-const questions = require('./questions.js');
+const connection = require('./config/connection.js');
+const questions = require('./config/questions.js');
 
 
 // I need to write fx that will display all of the options for the user to choose from

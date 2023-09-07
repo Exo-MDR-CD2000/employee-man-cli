@@ -15,10 +15,10 @@ const connection = mysql.createConnection({
 
 
 
-// connection.connect((err) => {
-//     if (err) throw err;
-//     console.log('connected to MySQL server!')
-// }); // console logs if the connection is successful
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('connected to MySQL server!')
+}); // console logs if the connection is successful
 
 
 
