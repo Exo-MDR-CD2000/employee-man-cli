@@ -1,1 +1,2 @@
-// establishes connection to the server
+// connects to the database and starts the server
+// do this last
