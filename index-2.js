@@ -105,7 +105,7 @@ const addDepartment = () => {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'departmentName',
+            name: 'name',
             message: 'What is the name of the department?',
         }
     ]).then((answer) => {
