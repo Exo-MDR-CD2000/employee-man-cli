@@ -1,0 +1,19 @@
+{
+  "name": "employee-man-cli",
+  "version": "1.0.0",
+  "description": "A CLI tool to manage employees",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "dotenv": "^8.2.0",
+    "inquirer": "^8.2.4"
+  }
+}
