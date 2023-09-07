@@ -4,3 +4,14 @@
 
 const inquirer = require('inquirer');
 const connection = require('./connection.js');
+
+
+// I need to write fx that will display all of the options for the user to choose from
+
+
+
+
+
+
+
+
