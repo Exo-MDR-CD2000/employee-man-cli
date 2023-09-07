@@ -117,28 +117,119 @@ const addDepartment = () => {
     })
 }
 
+// adding in departments fixed. Issue was name.
+
+// const addRole = () => {
+//     inquirer.prompt([
+//         {
+//             type: 'input',
+//             name: 'title',
+//             message: 'What is the title of the role?',
+//         },
+//         {
+//             type: 'number',
+//             name: 'salary',
+//             message: 'What is the salary of the role?',
+//         },
+//         {
+//             type: 'list',
+//             name: 'department_id',
+//             message: 'Which department does this new role belong to?',
+//             choices: [
+//                 { name: 'Sales', value: 1 },
+//                 { name: 'Engineering', value: 2 },
+//                 { name: 'Finance', value: 3 },
+//                 { name: 'Legal', value: 4 },
+//             ],
+//         }
+//     ]).then((answer) => {
+//         connection.query('INSERT INTO role SET ?', answer, (err) => {
+//             if (err) throw err;
+//             console.log('Role added successfully!');
+//             showPrompt();
+//         })
+//     })
+// }
+
 const addRole = () => {
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'roleTitle',
-            message: 'What is the title of the role?',
-        },
-        {
-            type: 'number',
-            name: 'roleSalary',
-            message: 'What is the salary of the role?',
-        },
-        {
-            type: 'number',
-            name: 'departmentId',
-            message: 'What is the department id of the role?',
-        }
-    ]).then((answer) => {
-        connection.query('INSERT INTO role SET ?', answer, (err) => {
-            if (err) throw err;
-            console.log('Role added successfully!');
-            showPrompt();
+    connection.query('SELECT * FROM department', (err, res) => {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'title',
+                message: 'What is the title of the role?',
+            },
+            {
+                type: 'number',
+                name: 'salary',
+                message: 'What is the salary of the role?',
+            },
+            {
+                type: 'list',
+                name: 'department_id',
+                message: 'Which department does this new role belong to?',
+                choices: [
+                    ...res.map(department => ({ name: department.name, value: department.id })),
+                    { name: 'Add new department', value: 'new' }
+                ],
+            }
+        ]).then((answer) => {
+            if (answer.department_id === 'new') {
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        name: 'name',
+                        message: 'What is the name of the new department?',
+                    }
+                ]).then((departmentAnswer) => {
+                    connection.query('INSERT INTO department SET ?', departmentAnswer, (err, res) => {
+                        if (err) throw err;
+                        console.log('Department added successfully!');
+                        answer.department_id = res.insertId;
+                        insertRole(answer);
+                    })
+                })
+            } else {
+                insertRole(answer);
+            }
         })
     })
 }
+
+const insertRole = (answer) => {
+    connection.query('INSERT INTO role SET ?', answer, (err) => {
+        if (err) throw err;
+        console.log('Role added successfully!');
+        showPrompt();
+    })
+}
+// inquirer.prompt([
+//     {
+//         type: 'input',
+//         name: 'title',
+//         message: 'What is the title of the new role?',
+//     },
+//     {
+//         type: 'input',
+//         name: 'salary',
+//         message: 'What is the salary of the new role?',
+//     },
+//     {
+//         type: 'list',
+//         name: 'department_id',
+//         message: 'Which department does the new role belong to?',
+//         choices: [1, 2, 3], // replace with actual department IDs
+//     },
+// ]).then((answers) => {
+//     // use the answers to insert a new row into the role table
+//     const sql = `INSERT INTO role (title, salary, department_id) VALUES ('${answers.title}', ${answers.salary}, ${answers.department_id})`;
+//     // execute the SQL statement using your database connection
+// });
+
+// choices: [
+//     { name: 'Sales', value: 1 },
+//     { name: 'Engineering', value: 2 },
+//     { name: 'Finance', value: 3 },
+//     { name: 'Legal', value: 4 },
+// ],
