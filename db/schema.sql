@@ -7,6 +7,7 @@ use employee_manager_db;
 
 create table department (
     id int primary KEY,
+    -- id int not null auto_increment primary KEY,
     name varchar(30) not null
 );
 
