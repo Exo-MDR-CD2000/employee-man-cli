@@ -52,4 +52,45 @@ async function mainMenu() {
 }
 
 
+async function viewAllDepartments() {
+    const [rows] = await connection.query('SELECT * FROM department');
+    console.table(rows);
+}
 
+async function viewAllRoles() {
+    const [rows] = await connection.query('SELECT * FROM role');
+    console.table(rows);
+}
+
+async function viewAllEmployees() {
+    const [rows] = await connection.query('SELECT * FROM employee');
+    console.table(rows);
+}
+
+async function addDepartment() {
+    const { departmentName } = await inquirer.prompt(questions.addDepartment);
+    await connection.query('INSERT INTO department (name) VALUES (?)', [departmentName]);
+    console.log('Department added successfully!');
+}
+
+async function addRole() {
+    const { roleTitle, roleSalary, roleDepartmentId } = await inquirer.prompt(questions.addRole);
+    await connection.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [roleTitle, roleSalary, roleDepartmentId]);
+    console.log('Role added successfully!');
+}
+
+async function addEmployee() {
+    const { employeeFirstName, employeeLastName, employeeRoleId, employeeManagerId } = await inquirer.prompt(questions.addEmployee);
+    await connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [employeeFirstName, employeeLastName, employeeRoleId, employeeManagerId]);
+}
+
+async function updateEmployeeRole() {
+    const { employeeId, roleId } = await inquirer.prompt(questions.updateEmployeeRole);
+    await connection.query('UPDATE employee SET role_id = ? WHERE id = ?', [roleId, employeeId]);
+    console.log('Employee role updated successfully!');
+}
+
+mainMenu();
+
+
+// This is a lot of similar code for each function. Test the code and make sure that the questions.js file is working properly
