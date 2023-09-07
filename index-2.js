@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     port: 3306,
     user: 'root',
     password: '12347$$jag',
-    database: 'employee_db'
+    database: 'employee_manager_db'
 });
 
 
@@ -98,5 +98,47 @@ const viewAllEmployees = () => {
         if (err) throw err;
         console.table(res);
         showPrompt();
+    })
+}
+
+const addDepartment = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'departmentName',
+            message: 'What is the name of the department?',
+        }
+    ]).then((answer) => {
+        connection.query('INSERT INTO department SET ?', answer, (err) => {
+            if (err) throw err;
+            console.log('Department added successfully!');
+            showPrompt();
+        })
+    })
+}
+
+const addRole = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'roleTitle',
+            message: 'What is the title of the role?',
+        },
+        {
+            type: 'number',
+            name: 'roleSalary',
+            message: 'What is the salary of the role?',
+        },
+        {
+            type: 'number',
+            name: 'departmentId',
+            message: 'What is the department id of the role?',
+        }
+    ]).then((answer) => {
+        connection.query('INSERT INTO role SET ?', answer, (err) => {
+            if (err) throw err;
+            console.log('Role added successfully!');
+            showPrompt();
+        })
     })
 }

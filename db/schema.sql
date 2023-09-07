@@ -6,13 +6,14 @@ create database employee_manager_db;
 use employee_manager_db;
 
 create table department (
-    id int primary KEY,
-    -- id int not null auto_increment primary KEY,
+    -- id int primary KEY,
+    id int not null auto_increment primary KEY,
     name varchar(30) not null
 );
 
 create table role (
-    id int primary KEY,
+    -- id int primary KEY,
+    id int not null auto_increment primary KEY,
     title varchar(30) not null,
     salary int not null,
     -- can also be set to decimal but it looks weird having a yearly salary with cents
@@ -22,7 +23,8 @@ create table role (
 );
 
 create table employee (
-    id int primary key,
+    -- id int primary key,
+    id int not null auto_increment primary KEY,
     first_name varchar(30) not null,
     last_name varchar(30) not null,
     role_id int,
