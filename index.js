@@ -4,12 +4,13 @@
 
 const inquirer = require('inquirer');
 const mysql = require('mysql2/promise');
-const connection = require('./config/connection.js');
-const questions = require('./config/questions.js');
+// const connection = require('./config/connection.js');
+// const questions = require('./config/questions.js');
 
 
 // I need to write fx that will display all of the options for the user to choose from
 
+// It became apparent to me that using mysql2 promises could reduce the amount of code needed to write the fx(s)
 
 
 async function mainMenu() {
