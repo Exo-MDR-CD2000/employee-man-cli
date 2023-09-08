@@ -17,6 +17,11 @@ After sourcing the schema and seeds, we can begin the main application. Open the
 
 ## Credits
 - Class notes on SQL and MySQL package
+  
+- Inquire [Docs](https://www.npmjs.com/package/inquirer)
+  
+- mysql2 [Docs](https://www.npmjs.com/package/mysql2)
+  
 
 ## Deployed Links
 
