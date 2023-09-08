@@ -92,10 +92,6 @@ const viewAllRoles = () => {
     SELECT role.id, role.title, department.name AS department, role.salary
     FROM role
     LEFT JOIN department ON role.department_id = department.id
-
-    
-    
-    
     `;
     connection.query(sql, (err, res) => {
       if (err) throw err;
