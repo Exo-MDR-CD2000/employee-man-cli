@@ -3,8 +3,9 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
-// i'm pretty sure express is not needed for this type of project.
-// I can also hardcode in the port, host, user, and password without using dotenv
+// connection details below depending on your local machine
+// If grabbing from github, change the password field to your own mysql password on line 14
+
 
 const connection = mysql.createConnection({
     host: 'localhost',
