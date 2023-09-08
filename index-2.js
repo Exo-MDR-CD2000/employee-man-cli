@@ -72,7 +72,7 @@ const showPrompt = () => {
                 process.exit(1);
         }
     })
-}
+};
 
 
 // now create the functions for each of the switch cases
@@ -83,7 +83,7 @@ const viewAllDepartments = () => {
         console.table(res);
         showPrompt();
     })
-}
+};
 
 const viewAllRoles = () => {
     connection.query('SELECT * FROM role', (err, res) => {
@@ -91,7 +91,7 @@ const viewAllRoles = () => {
         console.table(res);
         showPrompt();
     })
-}
+};
 
 const viewAllEmployees = () => {
     connection.query('SELECT * FROM employee', (err, res) => {
@@ -99,7 +99,7 @@ const viewAllEmployees = () => {
         console.table(res);
         showPrompt();
     })
-}
+};
 
 const addDepartment = () => {
     inquirer.prompt([
@@ -115,7 +115,7 @@ const addDepartment = () => {
             showPrompt();
         })
     })
-}
+};
 
 
 const addRole = () => {
@@ -162,7 +162,7 @@ const addRole = () => {
             }
         })
     })
-}
+};
 
 const insertRole = (answer) => {
     connection.query('INSERT INTO role SET ?', answer, (err) => {
@@ -170,7 +170,7 @@ const insertRole = (answer) => {
         console.log('Role added successfully!');
         showPrompt();
     })
-}
+};
 
 const addEmployee = () => {
     connection.query('SELECT * FROM role', (err, res) => {
@@ -219,7 +219,7 @@ const addEmployee = () => {
             })
         })
     })
-}
+};
 
 
 // now add in the update employee role function
@@ -254,3 +254,4 @@ const updateEmployeeRole = () => {
         })
     })
 };
+
