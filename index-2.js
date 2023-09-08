@@ -172,42 +172,51 @@ const insertRole = (answer) => {
     })
 }
 
-
 const addEmployee = () => {
     connection.query('SELECT * FROM role', (err, res) => {
         if (err) throw err;
-        inquirer.prompt([
-            {
-                type: 'input',
-                name: 'first_name',
-                message: 'What is the first name of the employee?',
-            },
-            {
-                type: 'input',
-                name: 'last_name',
-                message: 'What is the last name of the employee?',
-            },
-            {
-                type: 'list',
-                name: 'role_id',
-                message: 'What is the role of the employee?',
-                choices: [
-                    ...res.map(role => ({ name: role.title, value: role.id })),
-                    { name: 'Add new role', value: 'new' }
-                ],
-            }
-        ]).then((answer) => {
-            if (answer.role_id === 'new') {
-                addRole();
-            } else {
-                connection.query('INSERT INTO employee SET ?', answer, (err) => {
-                    if (err) throw err;
-                    console.log('Employee added successfully!');
-                    showPrompt();
-                })
-            }
+        connection.query('SELECT e.id, CONCAT(e.first_name, " ", e.last_name) AS manager_name FROM employee e JOIN role r ON e.role_id = r.id', (err, managers) => {
+            if (err) throw err;
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'first_name',
+                    message: 'What is the first name of the employee?',
+                },
+                {
+                    type: 'input',
+                    name: 'last_name',
+                    message: 'What is the last name of the employee?',
+                },
+                {
+                    type: 'list',
+                    name: 'role_id',
+                    message: 'What is the role of the employee?',
+                    choices: [
+                        ...res.map(role => ({ name: role.title, value: role.id })),
+                        { name: 'Add new role', value: 'new' }
+                    ],
+                },
+                {
+                    type: 'list',
+                    name: 'manager_id',
+                    message: 'Who is the manager of the employee?',
+                    choices: [
+                        ...managers.map(manager => ({ name: manager.manager_name, value: manager.id })),
+                        { name: 'Add new manager', value: 'new' }
+                    ],
+                },
+            ]).then((answer) => {
+                if (answer.role_id === 'new') {
+                    addRole();
+                } else {
+                    connection.query('INSERT INTO employee SET ?', answer, (err) => {
+                        if (err) throw err;
+                        console.log('Employee added successfully!');
+                        showPrompt();
+                    })
+                }
+            })
         })
     })
 }
-
-// above works but I forgot to add a prompt for manager_id.
