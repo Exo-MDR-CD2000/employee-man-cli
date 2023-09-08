@@ -85,6 +85,19 @@ const viewAllDepartments = () => {
     })
 };
 
+// const viewAllDepartments = () => {
+//     const sql = `
+//     SELECT department.id, department.name
+//     FROM department`;
+//     connection.query(sql, (err, res) => {
+//       if (err) throw err;
+//       console.table(res);
+//       showPrompt();
+//     });
+// };
+
+
+
 // const viewAllRoles = () => {
 //     connection.query('SELECT * FROM role', (err, res) => {
 //         if (err) throw err;
@@ -98,7 +111,7 @@ const viewAllRoles = () => {
     SELECT role.id, role.title, department.name AS department, role.salary
     FROM role
     LEFT JOIN department ON role.department_id = department.id
-    
+
     
     
     
@@ -234,6 +247,7 @@ const addEmployee = () => {
                     name: 'manager_id',
                     message: 'Who is the manager of the employee?',
                     choices: [
+                        { name: 'None', value: null },
                         ...managers.map(manager => ({ name: manager.manager_name, value: manager.id })),
                         { name: 'Add new manager', value: 'new' }
                     ],
@@ -252,6 +266,8 @@ const addEmployee = () => {
         })
     })
 };
+
+
 
 
 // now add in the update employee role function
