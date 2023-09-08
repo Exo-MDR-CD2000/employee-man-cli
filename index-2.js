@@ -220,3 +220,37 @@ const addEmployee = () => {
         })
     })
 }
+
+
+// now add in the update employee role function
+// instructions say to only update the role for the empoloyee
+
+
+const updateEmployeeRole = () => {
+    connection.query('SELECT * FROM employee', (err, employees) => {
+        if (err) throw err;
+        connection.query('SELECT * FROM role', (err, roles) => {
+            if (err) throw err;
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'id',
+                    message: 'Which employee would you like to update?',
+                    choices: employees.map(employee => ({ name: `${employee.first_name} ${employee.last_name}`, value: employee.id })),
+                },
+                {
+                    type: 'list',
+                    name: 'role_id',
+                    message: 'What is the new role of the employee?',
+                    choices: roles.map(role => ({ name: role.title, value: role.id })),
+                }
+            ]).then((answer) => {
+                connection.query('UPDATE employee SET role_id = ? WHERE id = ?', [answer.role_id, answer.id], (err) => {
+                    if (err) throw err;
+                    console.log('Employee role updated successfully!');
+                    showPrompt();
+                })
+            })
+        })
+    })
+};
