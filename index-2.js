@@ -75,7 +75,7 @@ const showPrompt = () => {
 };
 
 
-// now create the functions for each of the switch cases
+// Function for each inquirer prompt
 
 const viewAllDepartments = () => {
     connection.query('SELECT * FROM department', (err, res) => {
@@ -85,26 +85,6 @@ const viewAllDepartments = () => {
     })
 };
 
-// const viewAllDepartments = () => {
-//     const sql = `
-//     SELECT department.id, department.name
-//     FROM department`;
-//     connection.query(sql, (err, res) => {
-//       if (err) throw err;
-//       console.table(res);
-//       showPrompt();
-//     });
-// };
-
-
-
-// const viewAllRoles = () => {
-//     connection.query('SELECT * FROM role', (err, res) => {
-//         if (err) throw err;
-//         console.table(res);
-//         showPrompt();
-//     })
-// };
 
 const viewAllRoles = () => {
     const sql = `
@@ -121,15 +101,8 @@ const viewAllRoles = () => {
       console.table(res);
       showPrompt();
     });
-}
+};
 
-// const viewAllEmployees = () => {
-//     connection.query('SELECT * FROM employee', (err, res) => {
-//         if (err) throw err;
-//         console.table(res);
-//         showPrompt();
-//     })
-// };
 
 const viewAllEmployees = () => {
     const sql = `
@@ -266,13 +239,6 @@ const addEmployee = () => {
         })
     })
 };
-
-
-
-
-// now add in the update employee role function
-// instructions say to only update the role for the empoloyee
-
 
 const updateEmployeeRole = () => {
     connection.query('SELECT * FROM employee', (err, employees) => {
