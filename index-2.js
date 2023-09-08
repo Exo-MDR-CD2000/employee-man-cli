@@ -85,13 +85,30 @@ const viewAllDepartments = () => {
     })
 };
 
+// const viewAllRoles = () => {
+//     connection.query('SELECT * FROM role', (err, res) => {
+//         if (err) throw err;
+//         console.table(res);
+//         showPrompt();
+//     })
+// };
+
 const viewAllRoles = () => {
-    connection.query('SELECT * FROM role', (err, res) => {
-        if (err) throw err;
-        console.table(res);
-        showPrompt();
-    })
-};
+    const sql = `
+    SELECT role.id, role.title, department.name AS department, role.salary
+    FROM role
+    LEFT JOIN department ON role.department_id = department.id
+    
+    
+    
+    
+    `;
+    connection.query(sql, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      showPrompt();
+    });
+}
 
 // const viewAllEmployees = () => {
 //     connection.query('SELECT * FROM employee', (err, res) => {
