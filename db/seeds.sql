@@ -4,8 +4,6 @@ insert into department (id, name) values
     (3, 'Finance'),
     (4, 'Legal');
 
--- example video demo only has these 4 roles
-
 -- add in some example roles
 insert into role (id, title, salary, department_id) values
 (1, 'Sales Lead', 100000, 1),
@@ -30,4 +28,4 @@ insert into employee (id, first_name, last_name, role_id, manager_id) values
 (7, 'Tom', 'Allen', 7, 6),
 (8, 'Sam', 'Wright', 8, 5);
 
--- four of these fictional employees are managers which is why they have a null value for manager_id
+-- null values determine the manager of the department
