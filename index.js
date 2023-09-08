@@ -1,4 +1,4 @@
-// second test file to have everything in one place. I will combine all the functions into here instead of modularizing them
+// Required packages below
 
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
