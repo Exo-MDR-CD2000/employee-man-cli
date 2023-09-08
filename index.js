@@ -3,6 +3,7 @@
 // import the connection from db/connection.js so that mysql can be used
 
 const inquirer = require('inquirer');
+const mysql = require('mysql2/promise');
 const connection = require('./config/connection.js');
 const questions = require('./config/questions.js');
 

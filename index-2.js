@@ -257,3 +257,5 @@ const updateEmployeeRole = () => {
 
 // only issues now is that the columns that denote an id are not showing their respective employee/role/department names
 // it's hard to tell the id number associated with each employee/role/department
+// really, the only things that need tro be fixed are the view functions that show all the employees/roles/departments
+// the other functions are fine but it is just hard to read the data as is
