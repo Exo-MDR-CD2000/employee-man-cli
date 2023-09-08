@@ -117,39 +117,6 @@ const addDepartment = () => {
     })
 }
 
-// adding in departments fixed. Issue was name.
-
-// const addRole = () => {
-//     inquirer.prompt([
-//         {
-//             type: 'input',
-//             name: 'title',
-//             message: 'What is the title of the role?',
-//         },
-//         {
-//             type: 'number',
-//             name: 'salary',
-//             message: 'What is the salary of the role?',
-//         },
-//         {
-//             type: 'list',
-//             name: 'department_id',
-//             message: 'Which department does this new role belong to?',
-//             choices: [
-//                 { name: 'Sales', value: 1 },
-//                 { name: 'Engineering', value: 2 },
-//                 { name: 'Finance', value: 3 },
-//                 { name: 'Legal', value: 4 },
-//             ],
-//         }
-//     ]).then((answer) => {
-//         connection.query('INSERT INTO role SET ?', answer, (err) => {
-//             if (err) throw err;
-//             console.log('Role added successfully!');
-//             showPrompt();
-//         })
-//     })
-// }
 
 const addRole = () => {
     connection.query('SELECT * FROM department', (err, res) => {
@@ -204,32 +171,43 @@ const insertRole = (answer) => {
         showPrompt();
     })
 }
-// inquirer.prompt([
-//     {
-//         type: 'input',
-//         name: 'title',
-//         message: 'What is the title of the new role?',
-//     },
-//     {
-//         type: 'input',
-//         name: 'salary',
-//         message: 'What is the salary of the new role?',
-//     },
-//     {
-//         type: 'list',
-//         name: 'department_id',
-//         message: 'Which department does the new role belong to?',
-//         choices: [1, 2, 3], // replace with actual department IDs
-//     },
-// ]).then((answers) => {
-//     // use the answers to insert a new row into the role table
-//     const sql = `INSERT INTO role (title, salary, department_id) VALUES ('${answers.title}', ${answers.salary}, ${answers.department_id})`;
-//     // execute the SQL statement using your database connection
-// });
 
-// choices: [
-//     { name: 'Sales', value: 1 },
-//     { name: 'Engineering', value: 2 },
-//     { name: 'Finance', value: 3 },
-//     { name: 'Legal', value: 4 },
-// ],
+
+const addEmployee = () => {
+    connection.query('SELECT * FROM role', (err, res) => {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'first_name',
+                message: 'What is the first name of the employee?',
+            },
+            {
+                type: 'input',
+                name: 'last_name',
+                message: 'What is the last name of the employee?',
+            },
+            {
+                type: 'list',
+                name: 'role_id',
+                message: 'What is the role of the employee?',
+                choices: [
+                    ...res.map(role => ({ name: role.title, value: role.id })),
+                    { name: 'Add new role', value: 'new' }
+                ],
+            }
+        ]).then((answer) => {
+            if (answer.role_id === 'new') {
+                addRole();
+            } else {
+                connection.query('INSERT INTO employee SET ?', answer, (err) => {
+                    if (err) throw err;
+                    console.log('Employee added successfully!');
+                    showPrompt();
+                })
+            }
+        })
+    })
+}
+
+// above works but I forgot to add a prompt for manager_id.
